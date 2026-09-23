@@ -1,5 +1,7 @@
 ﻿<Project>
-  <Import Project="$(MSBuildThisFileDirectory)/build-common/Common.props" />
+  <!-- iPlus settings and overrides -->
+  <Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../iPlus/build/Avalonia.Build.props" />
+  <!-- End iPlus settings and overrides -->
 
   <PropertyGroup>
     <LangVersion>preview</LangVersion>
@@ -7,9 +9,14 @@
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  
-    <AvaloniaVersion>12.0.0</AvaloniaVersion>
-    <AvaloniaSampleVersion>12.1.1</AvaloniaSampleVersion>
+
+    <AvaloniaVersion Condition="'$(UseAvaloniaFork)' != 'True'">12.0.0</AvaloniaVersion>
+    <AvaloniaSampleVersion Condition="'$(UseAvaloniaFork)' != 'True'">12.1.1</AvaloniaSampleVersion>
+
+    <!-- Signing configuration -->
+    <SignAssembly>false</SignAssembly>
+    <PublicSign Condition="'$(SignAssembly)' == 'true'">true</PublicSign>
+    <AvaloniaPublicKey></AvaloniaPublicKey>
 
     <!-- CS0067: The event '' is never used -->
     <!-- NU1900: Error occurred while getting package vulnerability data -->

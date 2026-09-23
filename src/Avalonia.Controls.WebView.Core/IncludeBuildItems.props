@@ -1,15 +1,21 @@
 <Project>
 
-  <ItemGroup Label="Common Group">
-    <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+  <ItemGroup Label="Common Group" Condition="'$(UseAvaloniaFork)' != 'True'">
+    <PackageReference Include="Avalonia" />
   </ItemGroup>
 
-  <ItemGroup Label="Android Group" Condition=" $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android' ">
-    <PackageReference Include="Avalonia.Android" Version="$(AvaloniaVersion)" />
+  <!-- iPlus settings and overrides -->
+  <Import Condition="'$(UseAvaloniaFork)' == 'True'" Project="../../iPlus/build/AvaloniaInclude.props" />
+  <Import Condition="'$(UseAvaloniaFork)' == 'True' And $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'browser'" Project="../../iPlus/build/AvaloniaBaseBrowserInclude.props" />
+  <Import Condition="'$(UseAvaloniaFork)' == 'True' And $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Project="../../iPlus/build/AvaloniaBaseAndroidInclude.props" />
+  <!-- End iPlus settings and overrides -->
+
+  <ItemGroup Label="Android Group" Condition="'$(UseAvaloniaFork)' != 'True' And $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android' ">
+    <PackageReference Include="Avalonia.Android" />
   </ItemGroup>
 
-  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'browser'">
-    <PackageReference Include="Avalonia.Browser" Version="$(AvaloniaVersion)" />
+  <ItemGroup Condition="'$(UseAvaloniaFork)' != 'True' And $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'browser'">
+    <PackageReference Include="Avalonia.Browser" />
   </ItemGroup>
 
   <ItemGroup Label="Browser Group">

@@ -19,8 +19,11 @@
     <ProjectReference Include="..\Avalonia.Controls.WebView.Core\Avalonia.Controls.WebView.Core.csproj" PrivateAssets="all" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(AvaloniaPublicKey)' != ''">
     <InternalsVisibleTo Include="Avalonia.Controls.WebView.Tests, PublicKey=$(AvaloniaPublicKey)" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(AvaloniaPublicKey)' == ''">
+    <InternalsVisibleTo Include="Avalonia.Controls.WebView.Tests" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,8 +31,4 @@
   </ItemGroup>
 
   <Import Project="../Avalonia.Controls.WebView.Core/IncludeBuildItems.props" />
-  <Import Project="$(RepositoryTargetsRoot)/PackEnable.targets" />
-  <Import Project="$(RepositoryTargetsRoot)/SignEnable.targets" />
 </Project>
-
-

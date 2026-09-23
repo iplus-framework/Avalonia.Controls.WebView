@@ -17,18 +17,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.242">
+    <PackageReference Include="Microsoft.Windows.CsWin32" Condition="'$(UseAvaloniaFork)' != 'True'" />
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.242" Condition="'$(UseAvaloniaFork)' == 'True'" >
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="Avalonia.Controls.WebView" />
+    <InternalsVisibleTo Include="Avalonia.Xpf.Controls.WebView" />
+    <InternalsVisibleTo Include="Avalonia.Controls.WebView.Tests" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(AvaloniaPublicKey)' != ''">
+    <InternalsVisibleTo Remove="Avalonia.Controls.WebView" />
+    <InternalsVisibleTo Remove="Avalonia.Xpf.Controls.WebView" />
+    <InternalsVisibleTo Remove="Avalonia.Controls.WebView.Tests" />
     <InternalsVisibleTo Include="Avalonia.Controls.WebView, PublicKey=$(AvaloniaPublicKey)" />
     <InternalsVisibleTo Include="Avalonia.Xpf.Controls.WebView, PublicKey=$(AvaloniaPublicKey)" />
     <InternalsVisibleTo Include="Avalonia.Controls.WebView.Tests, PublicKey=$(AvaloniaPublicKey)" />
   </ItemGroup>
 
   <Import Project="../Avalonia.Controls.WebView.Core/IncludeBuildItems.props" />
-  <Import Project="$(RepositoryTargetsRoot)/SignEnable.targets" />
 </Project>

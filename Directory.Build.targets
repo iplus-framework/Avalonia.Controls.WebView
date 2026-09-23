@@ -1,6 +1,6 @@
 ﻿<Project>
-
-  <Import Project="$(RepositoryTargetsRoot)/NullableEnable.targets" />
-  <Import Project="$(RepositoryTargetsRoot)/TrimmingEnable.targets" />
-
+  <!-- Nullable and trimming settings handled by compiler defaults -->
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
 </Project>

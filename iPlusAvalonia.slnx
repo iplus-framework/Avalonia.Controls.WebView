@@ -1,0 +1,11 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/WebView/">
+    <Project Path="src/Avalonia.Controls.WebView.Core/Avalonia.Controls.WebView.Core.csproj" />
+    <Project Path="src/Avalonia.Controls.WebView/Avalonia.Controls.WebView.csproj" />
+  </Folder>
+</Solution>
